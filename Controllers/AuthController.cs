@@ -82,14 +82,15 @@ namespace pdm.Controllers
                 SameSite = SameSiteMode.Strict,
                 Expires = DateTime.Now.AddDays(1) // Adjust the expiration as needed
             });
-            return Ok(token);
+            return Ok(new {Token = token});
         }
 
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Firstname),
+                new Claim(ClaimTypes.Sid, Convert.ToString(user.Id)),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.RoleID == 1 ? "Admin" : "Membre")
             };
 
