@@ -7,7 +7,8 @@ using pdm.Data;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<PremiumDeluxeMotorSports_v1Context>(options =>
+builder.WebHost.UseUrls("http://localhost:8080", "https://localhost:8000");
+builder.Services.AddDbContext<PDMContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("PDMContext") ?? throw new InvalidOperationException("Connection string 'PDNContext' not found.")));
 
 // Add services to the container.

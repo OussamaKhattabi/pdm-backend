@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Common;
 using pdm.Data;
 using pdm.Models;
-using pdm.Services;
 
 namespace pdm.Controllers
 {
@@ -17,9 +10,9 @@ namespace pdm.Controllers
     [ApiController]
     public class CommandesController : ControllerBase
     {
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public CommandesController(PremiumDeluxeMotorSports_v1Context context)
+        public CommandesController(PDMContext context)
         {
             _context = context;
         }
@@ -29,17 +22,17 @@ namespace pdm.Controllers
         public async Task<ActionResult<IEnumerable<Commande>>> GetCommande()
         {
             if (_context.Commande == null)
-          {
+            {
               return NotFound();
-          }
+            }
             return await _context.Commande
                 .Include(c => c.User)
                 .Include(c => c.Vehicule)
                 .Include(c => c.Custom)
                 .Select(c => new Commande
                 {
-                    CmdId = c.CmdId,
-                    Date_Cmd = c.Date_Cmd,
+                    Id = c.Id,
+                    Date= c.Date,
                     CustomId = c.CustomId,
                     Custom = c.Custom,
                     VehiculeId = c.VehiculeId,
@@ -47,10 +40,10 @@ namespace pdm.Controllers
                     UserId = c.UserId,
                     User = c.User != null ? new User
                     {
-                        UserID = c.User.UserID,
-                        UserFirstName = c.User.UserFirstName,
-                        UserLastName = c.User.UserLastName,
-                        UserEmail = c.User.UserEmail,
+                        Id = c.User.Id,
+                        Firstname = c.User.Firstname,
+                        Lastname = c.User.Lastname,
+                        Email = c.User.Email,
                     } : null
                 })
                 .ToListAsync();
@@ -61,9 +54,9 @@ namespace pdm.Controllers
         public async Task<ActionResult<Commande>> GetCommande(int id)
         {
             if (_context.Commande == null)
-          {
+            {
               return NotFound();
-          }
+            }
             var commande = await _context.Commande.FindAsync(id);
 
             if (commande == null)
@@ -79,7 +72,7 @@ namespace pdm.Controllers
         [HttpPut("{id}"), Authorize(Roles = "Admin,Membre")]
         public async Task<IActionResult> PutCommande(int id, Commande commande)
         {
-            if (id != commande.CmdId)
+            if (id != commande.Id)
             {
                 return BadRequest();
             }
@@ -111,8 +104,8 @@ namespace pdm.Controllers
         public async Task<ActionResult<Commande>> PostCommande(Commande commande)
         {
            if(commande.Custom != null)
-            {
-                if(commande.Custom.CustomId > 0)
+           {
+                if(commande.Custom.Id > 0)
                 {
                     _context.Commande.Add(commande);
                 }
@@ -120,16 +113,16 @@ namespace pdm.Controllers
                 {
                     commande.Custom = null;
                 }
-            }
-
-          if (_context.Commande == null)
-          {
+           }
+           
+           if (_context.Commande == null)
+           {
               return Problem("Entity set 'PremiumDeluxeMotorSports_v1Context.Commande'  is null.");
-          }
+           }
 
-            await _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCommande", new { id = commande.CmdId }, commande);
+            return CreatedAtAction("GetCommande", new { id = commande.Id }, commande);
         }
 
         // DELETE: api/Commandes/5
@@ -155,7 +148,7 @@ namespace pdm.Controllers
 
         private bool CommandeExists(int id)
         {
-            return (_context.Commande?.Any(e => e.CmdId == id)).GetValueOrDefault();
+            return (_context.Commande?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

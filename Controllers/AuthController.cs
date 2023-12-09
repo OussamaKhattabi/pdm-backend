@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using pdm.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using pdm.Data;
@@ -15,9 +13,9 @@ namespace pdm.Controllers
     public class AuthController : ControllerBase
     {   
         private readonly IConfiguration _configuration;
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public AuthController(IConfiguration configuration, PremiumDeluxeMotorSports_v1Context context)
+        public AuthController(IConfiguration configuration, PDMContext context)
         {
             _configuration = configuration;
 
@@ -27,12 +25,12 @@ namespace pdm.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(User request)
         {
-            if (string.IsNullOrEmpty(request.UserEmail))
+            if (string.IsNullOrEmpty(request.Email))
             {
                 return BadRequest("Email is empty");
             }
 
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserEmail == request.UserEmail);
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (existingUser != null)
             {
@@ -44,14 +42,14 @@ namespace pdm.Controllers
             // Check if roles "Admin" and "Membre" exist, create them if not
             EnsureRolesExist();
 
-            request.UserPassword = BCrypt.Net.BCrypt.HashPassword(request.UserPassword);
+            request.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             var newUser = new User
             {
-                UserFirstName = request.UserFirstName, // MODIFTODO 
-                UserLastName = request.UserLastName,
-                UserEmail = request.UserEmail,
-                UserPassword = request.UserPassword,
+                Firstname = request.Firstname, // MODIFTODO 
+                Lastname = request.Lastname,
+                Email = request.Email,
+                Password = request.Password,
                 RoleID = isUserTableEmpty ? 1 : 2
             };
 
@@ -64,13 +62,13 @@ namespace pdm.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserLogin request)
         {
-            if (string.IsNullOrEmpty(request.UserEmail)) {
+            if (string.IsNullOrEmpty(request.Email)) {
                 return BadRequest("User not found");
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserEmail == request.UserEmail);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.UserPassword)){
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password)){
                 return BadRequest("Wrong password");
             }
 
@@ -91,7 +89,7 @@ namespace pdm.Controllers
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserFirstName),
+                new Claim(ClaimTypes.Name, user.Firstname),
                 new Claim(ClaimTypes.Role, user.RoleID == 1 ? "Admin" : "Membre")
             };
 
@@ -114,14 +112,14 @@ namespace pdm.Controllers
         private void EnsureRolesExist()
         {
             // Check if roles "Admin" and "Membre" exist, create them if not
-            if (!_context.Role.Any(r => r.RoleName == "Admin"))
+            if (!_context.Role.Any(r => r.Name == "Admin"))
             {
-                _context.Role.Add(new Role { RoleName = "Admin", RoleDescription = "Admin" });
+                _context.Role.Add(new Role { Name = "Admin", Description = "Admin" });
             }
 
-            if (!_context.Role.Any(r => r.RoleName == "Membre"))
+            if (!_context.Role.Any(r => r.Name == "Membre"))
             {
-                _context.Role.Add(new Role { RoleName = "Membre", RoleDescription = "Membre" });
+                _context.Role.Add(new Role { Name = "Membre", Description = "Membre" });
             }
 
             // Save changes to the database

@@ -13,21 +13,21 @@ namespace pdm.Migrations
                 name: "Role",
                 columns: table => new
                 {
-                    RoleID = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RoleName = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleDescription = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.RoleID);
+                    table.PrimaryKey("PK_Role", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Vehicule",
                 columns: table => new
                 {
-                    VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Marque = table.Column<string>(type: "TEXT", nullable: false),
                     Model = table.Column<string>(type: "TEXT", nullable: false),
@@ -37,29 +37,29 @@ namespace pdm.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicule", x => x.VehiculeId);
+                    table.PrimaryKey("PK_Vehicule", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserFirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    UserLastName = table.Column<string>(type: "TEXT", nullable: false),
-                    UserEmail = table.Column<string>(type: "TEXT", nullable: false),
-                    UserPassword = table.Column<string>(type: "TEXT", nullable: false),
+                    Firstname = table.Column<string>(type: "TEXT", nullable: false),
+                    Lastname = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
                     RoleID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Users_Role_RoleID",
                         column: x => x.RoleID,
                         principalTable: "Role",
-                        principalColumn: "RoleID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -67,21 +67,21 @@ namespace pdm.Migrations
                 name: "Custom",
                 columns: table => new
                 {
-                    CustomId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Couleur = table.Column<string>(type: "TEXT", nullable: false),
                     Stage = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrixCstm = table.Column<double>(type: "REAL", nullable: false),
+                    PrixCustom = table.Column<double>(type: "REAL", nullable: false),
                     VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Custom", x => x.CustomId);
+                    table.PrimaryKey("PK_Custom", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Custom_Vehicule_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
-                        principalColumn: "VehiculeId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -89,26 +89,26 @@ namespace pdm.Migrations
                 name: "Reservation",
                 columns: table => new
                 {
-                    IdReservation = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DateReservation = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservation", x => x.IdReservation);
+                    table.PrimaryKey("PK_Reservation", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Reservation_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservation_Vehicule_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
-                        principalColumn: "VehiculeId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -116,33 +116,33 @@ namespace pdm.Migrations
                 name: "Commande",
                 columns: table => new
                 {
-                    CmdId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Date_Cmd = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CustomId = table.Column<int>(type: "INTEGER", nullable: false),
                     VehiculeId = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Commande", x => x.CmdId);
+                    table.PrimaryKey("PK_Commande", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Commande_Custom_CustomId",
                         column: x => x.CustomId,
                         principalTable: "Custom",
-                        principalColumn: "CustomId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Commande_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Commande_Vehicule_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
-                        principalColumn: "VehiculeId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 

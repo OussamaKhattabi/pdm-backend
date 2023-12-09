@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using pdm.Data;
 using pdm.Models;
-using pdm.Services;
 
 namespace pdm.Controllers
 {
@@ -16,9 +10,9 @@ namespace pdm.Controllers
     [ApiController]
     public class VehiculesController : ControllerBase
     {
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public VehiculesController(PremiumDeluxeMotorSports_v1Context context)
+        public VehiculesController(PDMContext context)
         {
             _context = context;
         }
@@ -57,7 +51,7 @@ namespace pdm.Controllers
         [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutVehicule(int id, Vehicule vehicule)
         {
-            if (id != vehicule.VehiculeId)
+            if (id != vehicule.Id)
             {
                 return BadRequest();
             }
@@ -114,7 +108,7 @@ namespace pdm.Controllers
             _context.Vehicule.Add(vehicule);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVehicule", new { id = vehicule.VehiculeId }, vehicule);
+            return CreatedAtAction("GetVehicule", new { id = vehicule.Id }, vehicule);
         }
 
         // DELETE: api/Vehicules/5
@@ -139,7 +133,7 @@ namespace pdm.Controllers
 
         private bool VehiculeExists(int id)
         {
-            return (_context.Vehicule?.Any(e => e.VehiculeId == id)).GetValueOrDefault();
+            return (_context.Vehicule?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

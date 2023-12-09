@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pdm.Data;
 
@@ -10,25 +9,24 @@ using pdm.Data;
 
 namespace pdm.Migrations
 {
-    [DbContext(typeof(PremiumDeluxeMotorSports_v1Context))]
-    [Migration("20231209202707_Initial")]
-    partial class Initial
+    [DbContext(typeof(PDMContext))]
+    partial class PDMContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.23");
 
             modelBuilder.Entity("pdm.Models.Commande", b =>
                 {
-                    b.Property<int>("CmdId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CustomId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date_Cmd")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
@@ -37,7 +35,7 @@ namespace pdm.Migrations
                     b.Property<int>("VehiculeId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CmdId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomId");
 
@@ -50,7 +48,7 @@ namespace pdm.Migrations
 
             modelBuilder.Entity("pdm.Models.Custom", b =>
                 {
-                    b.Property<int>("CustomId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -58,7 +56,7 @@ namespace pdm.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("PrixCstm")
+                    b.Property<double>("PrixCustom")
                         .HasColumnType("REAL");
 
                     b.Property<int>("Stage")
@@ -67,7 +65,7 @@ namespace pdm.Migrations
                     b.Property<int>("VehiculeId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CustomId");
+                    b.HasKey("Id");
 
                     b.HasIndex("VehiculeId");
 
@@ -76,11 +74,11 @@ namespace pdm.Migrations
 
             modelBuilder.Entity("pdm.Models.Reservation", b =>
                 {
-                    b.Property<int>("IdReservation")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateReservation")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
@@ -89,7 +87,7 @@ namespace pdm.Migrations
                     b.Property<int>("VehiculeId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("IdReservation");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -101,49 +99,49 @@ namespace pdm.Migrations
 
             modelBuilder.Entity("pdm.Models.Role", b =>
                 {
-                    b.Property<int>("RoleID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RoleDescription")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RoleName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RoleID");
+                    b.HasKey("Id");
 
                     b.ToTable("Role");
                 });
 
             modelBuilder.Entity("pdm.Models.User", b =>
                 {
-                    b.Property<int>("UserID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("RoleID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserFirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserLastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserPassword")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserID");
+                    b.HasKey("Id");
 
                     b.HasIndex("RoleID");
 
@@ -152,7 +150,7 @@ namespace pdm.Migrations
 
             modelBuilder.Entity("pdm.Models.Vehicule", b =>
                 {
-                    b.Property<int>("VehiculeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -174,7 +172,7 @@ namespace pdm.Migrations
                     b.Property<int?>("ReservationId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("VehiculeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ReservationId")
                         .IsUnique();

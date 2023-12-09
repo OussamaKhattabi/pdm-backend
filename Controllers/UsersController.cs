@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using pdm.Data;
 using pdm.Models;
-using pdm.Services;
 
 namespace pdm.Controllers
 {
@@ -17,9 +11,9 @@ namespace pdm.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public UsersController(PremiumDeluxeMotorSports_v1Context context)
+        public UsersController(PDMContext context)
         {
             _context = context;
         }
@@ -58,7 +52,7 @@ namespace pdm.Controllers
         [HttpPut("{id}"),Authorize(Roles = "Admin,Membre")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
-            if (id != user.UserID)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
@@ -93,11 +87,11 @@ namespace pdm.Controllers
           {
               return Problem("Entity set 'PremiumDeluxeMotorSports_v1Context.Users'  is null.");
           }
-            user.UserPassword = BCrypt.Net.BCrypt.HashPassword(user.UserPassword);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserID }, user);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         // DELETE: api/Users/5
@@ -122,7 +116,7 @@ namespace pdm.Controllers
 
         private bool UserExists(int id)
         {
-            return (_context.Users?.Any(e => e.UserID == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

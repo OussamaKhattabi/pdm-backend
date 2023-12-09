@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using pdm.Data;
 using pdm.Models;
@@ -14,9 +9,9 @@ namespace pdm.Controllers
     [ApiController]
     public class RolesController : ControllerBase
     {
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public RolesController(PremiumDeluxeMotorSports_v1Context context)
+        public RolesController(PDMContext context)
         {
             _context = context;
         }
@@ -55,7 +50,7 @@ namespace pdm.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRole(int id, Role role)
         {
-            if (id != role.RoleID)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +88,7 @@ namespace pdm.Controllers
             _context.Role.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRole", new { id = role.RoleID }, role);
+            return CreatedAtAction("GetRole", new { id = role.Id }, role);
         }
 
         // DELETE: api/Roles/5
@@ -118,7 +113,7 @@ namespace pdm.Controllers
 
         private bool RoleExists(int id)
         {
-            return (_context.Role?.Any(e => e.RoleID == id)).GetValueOrDefault();
+            return (_context.Role?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Common;
 using pdm.Data;
 using pdm.Models;
-using pdm.Services;
 
 namespace pdm.Controllers
 {
@@ -17,9 +10,9 @@ namespace pdm.Controllers
     [ApiController]
     public class CustomsController : ControllerBase
     {
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public CustomsController(PremiumDeluxeMotorSports_v1Context context)
+        public CustomsController(PDMContext context)
         {
             _context = context;
         }
@@ -30,9 +23,9 @@ namespace pdm.Controllers
         {
 
             if (_context.Custom == null)
-              {
-                  return NotFound();
-              }
+            {
+                return NotFound();
+            }
             return await _context.Custom.ToListAsync();
         }
 
@@ -40,10 +33,10 @@ namespace pdm.Controllers
         [HttpGet("{id}"), Authorize(Roles = "Admin,Membre")]
         public async Task<ActionResult<Custom>> GetCustom(int id)
         {
-          if (_context.Custom == null)
-          {
+            if (_context.Custom == null)
+            {
               return NotFound();
-          }
+            }
             var custom = await _context.Custom.FindAsync(id);
 
             if (custom == null)
@@ -59,7 +52,7 @@ namespace pdm.Controllers
         [HttpPut("{id}"), Authorize(Roles = "Admin,Membre")]
         public async Task<IActionResult> PutCustom(int id, Custom custom)
         {
-            if (id != custom.CustomId)
+            if (id != custom.Id)
             {
                 return BadRequest();
             }
@@ -91,13 +84,13 @@ namespace pdm.Controllers
         public async Task<ActionResult<Custom>> PostCustom(Custom custom)
         {
             if (_context.Custom == null)
-          {
+            {
               return Problem("Entity set 'PremiumDeluxeMotorSports_v1Context.Custom'  is null.");
-          }
+            }
             _context.Custom.Add(custom);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustom", new { id = custom.CustomId }, custom);
+            return CreatedAtAction("GetCustom", new { id = custom.Id }, custom);
         }
 
         // DELETE: api/Customs/5
@@ -122,7 +115,7 @@ namespace pdm.Controllers
 
         private bool CustomExists(int id)
         {
-            return (_context.Custom?.Any(e => e.CustomId == id)).GetValueOrDefault();
+            return (_context.Custom?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

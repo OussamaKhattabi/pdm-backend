@@ -8,9 +8,9 @@ using pdm.Models;
 
 namespace pdm.Data
 {
-    public class PremiumDeluxeMotorSports_v1Context : DbContext
+    public class PDMContext : DbContext
     {
-        public PremiumDeluxeMotorSports_v1Context (DbContextOptions<PremiumDeluxeMotorSports_v1Context> options)
+        public PDMContext (DbContextOptions<PDMContext> options)
             : base(options)
         {
         }

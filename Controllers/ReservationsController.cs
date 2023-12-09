@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Common;
 using pdm.Data;
 using pdm.Models;
-using pdm.Services;
 
 namespace pdm.Controllers
 {
@@ -17,9 +10,9 @@ namespace pdm.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
-        private readonly PremiumDeluxeMotorSports_v1Context _context;
+        private readonly PDMContext _context;
 
-        public ReservationsController(PremiumDeluxeMotorSports_v1Context context)
+        public ReservationsController(PDMContext context)
         {
             _context = context;
         }
@@ -29,25 +22,25 @@ namespace pdm.Controllers
         public async Task<ActionResult<IEnumerable<Reservation>>> GetReservation()
         {
             if (_context.Reservation == null)
-          {
+            {
               return NotFound();
-          }
+            }
             return await _context.Reservation
                 .Include(r => r.User)
                 .Include(r => r.Vehicule)
                 .Select(r => new Reservation
                 {
-                    IdReservation = r.IdReservation,
-                    DateReservation = r.DateReservation,
+                    Id = r.Id,
+                    Date = r.Date,
                     VehiculeId = r.VehiculeId,
                     Vehicule = r.Vehicule,
                     UserId = r.UserId,
                     User = r.User != null ? new User
                     {
-                        UserID = r.User.UserID,
-                        UserFirstName = r.User.UserFirstName,
-                        UserLastName = r.User.UserLastName,
-                        UserEmail = r.User.UserEmail,
+                        Id = r.User.Id,
+                        Firstname = r.User.Firstname,
+                        Lastname = r.User.Lastname,
+                        Email = r.User.Email,
                     } : null
                 })
                 .ToListAsync();
@@ -58,9 +51,9 @@ namespace pdm.Controllers
         public async Task<ActionResult<Reservation>> GetReservation(long id)
         {
             if (_context.Reservation == null)
-          {
+            {
               return NotFound();
-          }
+            }
             var reservation = await _context.Reservation.FindAsync(id);
 
             if (reservation == null)
@@ -76,7 +69,7 @@ namespace pdm.Controllers
         [HttpPut("{id}"), Authorize(Roles = "Admin,Membre")]
         public async Task<IActionResult> PutReservation(long id, Reservation reservation)
         {
-            if (id != reservation.IdReservation)
+            if (id != reservation.Id)
             {
                 return BadRequest();
             }
@@ -108,13 +101,13 @@ namespace pdm.Controllers
         public async Task<ActionResult<Reservation>> PostReservation(Reservation reservation)
         {
             if (_context.Reservation == null)
-          {
+            {
               return Problem("Entity set 'PremiumDeluxeMotorSports_v1Context.Reservation'  is null.");
-          }
+            }
             _context.Reservation.Add(reservation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReservation", new { id = reservation.IdReservation }, reservation);
+            return CreatedAtAction("GetReservation", new { id = reservation.Id }, reservation);
         }
 
         // DELETE: api/Reservations/5
@@ -139,7 +132,7 @@ namespace pdm.Controllers
 
         private bool ReservationExists(long id)
         {
-            return (_context.Reservation?.Any(e => e.IdReservation == id)).GetValueOrDefault();
+            return (_context.Reservation?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

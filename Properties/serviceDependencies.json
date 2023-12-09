@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:PremiumDeluxeMotorSports_v1Context"
+      "connectionId": "ConnectionStrings:PDMContext"
     }
   }
 }
