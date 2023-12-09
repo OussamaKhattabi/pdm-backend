@@ -2,13 +2,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace PremiumDeluxeMotorSports_v1.Models
+namespace pdm.Models
 {
     public class Commande
     {
         [Key]
-        public int CmdId { get; set; }
-        public DateTime Date_Cmd { get; set; }
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
         
         [ForeignKey("Custom")]
         public int CustomId { get; set; }

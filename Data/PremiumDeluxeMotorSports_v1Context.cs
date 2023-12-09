@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
-using PremiumDeluxeMotorSports_v1.Models;
+using pdm.Models;
 
-namespace PremiumDeluxeMotorSports_v1.Data
+namespace pdm.Data
 {
     public class PremiumDeluxeMotorSports_v1Context : DbContext
     {
@@ -15,16 +15,16 @@ namespace PremiumDeluxeMotorSports_v1.Data
         {
         }
 
-        public DbSet<PremiumDeluxeMotorSports_v1.Models.User> Users { get; set; } = default!;
+        public DbSet<User> Users { get; set; } = default!;
 
-        public DbSet<PremiumDeluxeMotorSports_v1.Models.Vehicule>? Vehicule { get; set; }
+        public DbSet<Vehicule>? Vehicule { get; set; }
 
-        public DbSet<PremiumDeluxeMotorSports_v1.Models.Reservation>? Reservation { get; set; }
-        public DbSet<PremiumDeluxeMotorSports_v1.Models.Commande>? Commande { get; set; }
+        public DbSet<Reservation>? Reservation { get; set; }
+        public DbSet<Commande>? Commande { get; set; }
 
-        public DbSet<PremiumDeluxeMotorSports_v1.Models.Custom>? Custom { get; set; }
+        public DbSet<Custom>? Custom { get; set; }
 
-        public DbSet<PremiumDeluxeMotorSports_v1.Models.Role>? Role { get; set; }
+        public DbSet<Role>? Role { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

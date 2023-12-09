@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PremiumDeluxeMotorSports_v1.Migrations
+namespace pdm.Migrations
 {
     public partial class Initial : Migration
     {
@@ -13,10 +13,10 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "Role",
                 columns: table => new
                 {
-                    RoleID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RoleID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleName = table.Column<string>(type: "TEXT", nullable: false),
+                    RoleDescription = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,13 +27,13 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "Vehicule",
                 columns: table => new
                 {
-                    VehiculeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Prix = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NbrSiege = table.Column<int>(type: "int", nullable: false),
-                    ReservationId = table.Column<int>(type: "int", nullable: true)
+                    VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Marque = table.Column<string>(type: "TEXT", nullable: false),
+                    Model = table.Column<string>(type: "TEXT", nullable: false),
+                    Prix = table.Column<int>(type: "INTEGER", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: false),
+                    ReservationId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,15 +44,13 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserBirthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserFirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    UserLastName = table.Column<string>(type: "TEXT", nullable: false),
+                    UserEmail = table.Column<string>(type: "TEXT", nullable: false),
+                    UserPassword = table.Column<string>(type: "TEXT", nullable: false),
+                    RoleID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,12 +67,12 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "Custom",
                 columns: table => new
                 {
-                    CustomId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Couleur = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Stage = table.Column<int>(type: "int", nullable: false),
-                    PrixCstm = table.Column<double>(type: "float", nullable: false),
-                    VehiculeId = table.Column<int>(type: "int", nullable: false)
+                    CustomId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Couleur = table.Column<string>(type: "TEXT", nullable: false),
+                    Stage = table.Column<int>(type: "INTEGER", nullable: false),
+                    PrixCstm = table.Column<double>(type: "REAL", nullable: false),
+                    VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,11 +89,11 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "Reservation",
                 columns: table => new
                 {
-                    IdReservation = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateReservation = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    VehiculeId = table.Column<int>(type: "int", nullable: false)
+                    IdReservation = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    DateReservation = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,12 +116,12 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "Commande",
                 columns: table => new
                 {
-                    CmdId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date_Cmd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomId = table.Column<int>(type: "int", nullable: false),
-                    VehiculeId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    CmdId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Date_Cmd = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CustomId = table.Column<int>(type: "INTEGER", nullable: false),
+                    VehiculeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,8 +186,7 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                 name: "IX_Vehicule_ReservationId",
                 table: "Vehicule",
                 column: "ReservationId",
-                unique: true,
-                filter: "[ReservationId] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

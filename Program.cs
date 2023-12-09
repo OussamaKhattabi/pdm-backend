@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using PremiumDeluxeMotorSports_v1.Data;
+using pdm.Data;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PremiumDeluxeMotorSports_v1Context>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PremiumDeluxeMotorSports_v1Context") ?? throw new InvalidOperationException("Connection string 'PremiumDeluxeMotorSports_v1Context' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("PDMContext") ?? throw new InvalidOperationException("Connection string 'PDNContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllers();

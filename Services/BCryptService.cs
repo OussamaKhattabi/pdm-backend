@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Security.Policy;
 
-namespace PremiumDeluxeMotorSports_v1.Services
+namespace pdm.Services
 {
     public class BCryptVerifyService
     {

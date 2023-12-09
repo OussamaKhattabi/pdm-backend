@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PremiumDeluxeMotorSports_v1.Data;
-using PremiumDeluxeMotorSports_v1.Models;
+using pdm.Data;
+using pdm.Models;
 
-namespace PremiumDeluxeMotorSports_v1.Controllers
+namespace pdm.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

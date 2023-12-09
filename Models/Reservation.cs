@@ -2,15 +2,15 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace PremiumDeluxeMotorSports_v1.Models
+namespace pdm.Models
 {
     public class Reservation
     {
         [Key]
 
-        public int IdReservation { get; set; }
+        public int Id { get; set; }
 
-        public DateTime DateReservation { get; set; }
+        public DateTime Date { get; set; }
         
         [ForeignKey("User")]
         public int UserId { get; set; }

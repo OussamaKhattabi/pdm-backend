@@ -2,16 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PremiumDeluxeMotorSports_v1.Models
+namespace pdm.Models
 {
     public class Role
     {
         [System.ComponentModel.DataAnnotations.Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RoleID {  get; set; }
+        public int Id {  get; set; }
         [Required(ErrorMessage = "Le nom est obligatoire")]
-        public String RoleName { get; set; }
+        public String Name { get; set; }
         [Required(ErrorMessage = "La description est obligatoire")]
-        public String RoleDescription { get; set; } = String.Empty;
+        public String Description { get; set; } = String.Empty;
     }
 }

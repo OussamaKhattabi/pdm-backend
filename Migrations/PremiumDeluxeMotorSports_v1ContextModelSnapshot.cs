@@ -2,13 +2,12 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PremiumDeluxeMotorSports_v1.Data;
+using pdm.Data;
 
 #nullable disable
 
-namespace PremiumDeluxeMotorSports_v1.Migrations
+namespace pdm.Migrations
 {
     [DbContext(typeof(PremiumDeluxeMotorSports_v1Context))]
     partial class PremiumDeluxeMotorSports_v1ContextModelSnapshot : ModelSnapshot
@@ -16,31 +15,25 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.23")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.23");
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Commande", b =>
+            modelBuilder.Entity("pdm.Models.Commande", b =>
                 {
                     b.Property<int>("CmdId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CmdId"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CustomId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date_Cmd")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VehiculeId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CmdId");
 
@@ -53,26 +46,24 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.ToTable("Commande");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Custom", b =>
+            modelBuilder.Entity("pdm.Models.Custom", b =>
                 {
                     b.Property<int>("CustomId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomId"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Couleur")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("PrixCstm")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("Stage")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VehiculeId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CustomId");
 
@@ -81,22 +72,20 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.ToTable("Custom");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Reservation", b =>
+            modelBuilder.Entity("pdm.Models.Reservation", b =>
                 {
                     b.Property<int>("IdReservation")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReservation"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateReservation")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VehiculeId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("IdReservation");
 
@@ -108,60 +97,49 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.ToTable("Reservation");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Role", b =>
+            modelBuilder.Entity("pdm.Models.Role", b =>
                 {
                     b.Property<int>("RoleID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RoleDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("RoleID");
 
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.User", b =>
+            modelBuilder.Entity("pdm.Models.User", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RoleID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UserBirthday")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserFirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserLastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserPassword")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserPhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserID");
 
@@ -170,56 +148,53 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Vehicule", b =>
+            modelBuilder.Entity("pdm.Models.Vehicule", b =>
                 {
                     b.Property<int>("VehiculeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehiculeId"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Marque")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Prix")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("VehiculeId");
 
                     b.HasIndex("ReservationId")
-                        .IsUnique()
-                        .HasFilter("[ReservationId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Vehicule");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Commande", b =>
+            modelBuilder.Entity("pdm.Models.Commande", b =>
                 {
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.Custom", "Custom")
+                    b.HasOne("pdm.Models.Custom", "Custom")
                         .WithMany("Commandes")
                         .HasForeignKey("CustomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.User", "User")
+                    b.HasOne("pdm.Models.User", "User")
                         .WithMany("Commandes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.Vehicule", "Vehicule")
+                    b.HasOne("pdm.Models.Vehicule", "Vehicule")
                         .WithMany("Commandes")
                         .HasForeignKey("VehiculeId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -232,9 +207,9 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.Navigation("Vehicule");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Custom", b =>
+            modelBuilder.Entity("pdm.Models.Custom", b =>
                 {
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.Vehicule", "Vehicule")
+                    b.HasOne("pdm.Models.Vehicule", "Vehicule")
                         .WithMany("Customs")
                         .HasForeignKey("VehiculeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -243,17 +218,17 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.Navigation("Vehicule");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Reservation", b =>
+            modelBuilder.Entity("pdm.Models.Reservation", b =>
                 {
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.User", "User")
+                    b.HasOne("pdm.Models.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.Vehicule", "Vehicule")
+                    b.HasOne("pdm.Models.Vehicule", "Vehicule")
                         .WithOne("Reservation")
-                        .HasForeignKey("PremiumDeluxeMotorSports_v1.Models.Reservation", "VehiculeId")
+                        .HasForeignKey("pdm.Models.Reservation", "VehiculeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -262,9 +237,9 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.Navigation("Vehicule");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.User", b =>
+            modelBuilder.Entity("pdm.Models.User", b =>
                 {
-                    b.HasOne("PremiumDeluxeMotorSports_v1.Models.Role", "Role")
+                    b.HasOne("pdm.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -273,19 +248,19 @@ namespace PremiumDeluxeMotorSports_v1.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Custom", b =>
+            modelBuilder.Entity("pdm.Models.Custom", b =>
                 {
                     b.Navigation("Commandes");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.User", b =>
+            modelBuilder.Entity("pdm.Models.User", b =>
                 {
                     b.Navigation("Commandes");
 
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("PremiumDeluxeMotorSports_v1.Models.Vehicule", b =>
+            modelBuilder.Entity("pdm.Models.Vehicule", b =>
                 {
                     b.Navigation("Commandes");
 

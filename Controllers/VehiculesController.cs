@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PremiumDeluxeMotorSports_v1.Data;
-using PremiumDeluxeMotorSports_v1.Models;
-using PremiumDeluxeMotorSports_v1.Services;
+using pdm.Data;
+using pdm.Models;
+using pdm.Services;
 
-namespace PremiumDeluxeMotorSports_v1.Controllers
+namespace pdm.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

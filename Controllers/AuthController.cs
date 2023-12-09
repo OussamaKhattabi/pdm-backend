@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using PremiumDeluxeMotorSports_v1.Data;
-using PremiumDeluxeMotorSports_v1.Models;
-using PremiumDeluxeMotorSports_v1.Services;
+using pdm.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using pdm.Data;
+using pdm.Models;
 
-namespace PremiumDeluxeMotorSports_v1.Controllers
+namespace pdm.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
