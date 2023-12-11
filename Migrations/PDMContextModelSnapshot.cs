@@ -150,7 +150,7 @@ namespace pdm.Migrations
 
             modelBuilder.Entity("pdm.Models.Vehicule", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("VehiculeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -172,7 +172,7 @@ namespace pdm.Migrations
                     b.Property<int?>("ReservationId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("VehiculeId");
 
                     b.HasIndex("ReservationId")
                         .IsUnique();

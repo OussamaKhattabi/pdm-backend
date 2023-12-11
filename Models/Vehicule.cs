@@ -7,7 +7,7 @@ namespace pdm.Models
     public class Vehicule
     {
         [Key]
-        public int Id { get; set; }
+        public int VehiculeId { get; set; }
         public string Marque { get; set; }
         public string Model { get; set; }
         public int Prix { get; set; }

@@ -27,7 +27,7 @@ namespace pdm.Migrations
                 name: "Vehicule",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    VehiculeId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Marque = table.Column<string>(type: "TEXT", nullable: false),
                     Model = table.Column<string>(type: "TEXT", nullable: false),
@@ -37,7 +37,7 @@ namespace pdm.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicule", x => x.Id);
+                    table.PrimaryKey("PK_Vehicule", x => x.VehiculeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +81,7 @@ namespace pdm.Migrations
                         name: "FK_Custom_Vehicule_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
-                        principalColumn: "Id",
+                        principalColumn: "VehiculeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -108,7 +108,7 @@ namespace pdm.Migrations
                         name: "FK_Reservation_Vehicule_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
-                        principalColumn: "Id",
+                        principalColumn: "VehiculeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -142,7 +142,7 @@ namespace pdm.Migrations
                         name: "FK_Commande_Vehicule_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
-                        principalColumn: "Id",
+                        principalColumn: "VehiculeId",
                         onDelete: ReferentialAction.Restrict);
                 });
 

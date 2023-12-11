@@ -51,7 +51,7 @@ namespace pdm.Controllers
         [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutVehicule(int id, Vehicule vehicule)
         {
-            if (id != vehicule.Id)
+            if (id != vehicule.VehiculeId)
             {
                 return BadRequest();
             }
@@ -108,7 +108,7 @@ namespace pdm.Controllers
             _context.Vehicule.Add(vehicule);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVehicule", new { id = vehicule.Id }, vehicule);
+            return CreatedAtAction("GetVehicule", new { id = vehicule.VehiculeId }, vehicule);
         }
 
         // DELETE: api/Vehicules/5
@@ -133,7 +133,7 @@ namespace pdm.Controllers
 
         private bool VehiculeExists(int id)
         {
-            return (_context.Vehicule?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Vehicule?.Any(e => e.VehiculeId == id)).GetValueOrDefault();
         }
     }
 }

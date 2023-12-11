@@ -11,7 +11,7 @@ using pdm.Data;
 namespace pdm.Migrations
 {
     [DbContext(typeof(PDMContext))]
-    [Migration("20231209211238_Initial")]
+    [Migration("20231211162143_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,7 +152,7 @@ namespace pdm.Migrations
 
             modelBuilder.Entity("pdm.Models.Vehicule", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("VehiculeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -174,7 +174,7 @@ namespace pdm.Migrations
                     b.Property<int?>("ReservationId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("VehiculeId");
 
                     b.HasIndex("ReservationId")
                         .IsUnique();
