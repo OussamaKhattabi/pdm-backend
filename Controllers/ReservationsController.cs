@@ -48,7 +48,7 @@ namespace pdm.Controllers
 
         // GET: api/Reservations/5
         [HttpGet("{id}"), Authorize(Roles = "Admin,Membre")]
-        public async Task<ActionResult<Reservation>> GetReservation(long id)
+        public async Task<ActionResult<Reservation>> GetReservation(int id)
         {
             if (_context.Reservation == null)
             {
@@ -62,6 +62,25 @@ namespace pdm.Controllers
             }
 
             return reservation;
+        }
+        
+        
+        // GET: api/Reservations/5
+        [HttpGet("user/{id}"), Authorize(Roles = "Admin,Membre")]
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservationsByUser(int id)
+        {
+            if (_context.Reservation == null)
+            {
+                return NotFound();
+            }
+            var reservations = await _context.Reservation.Where(r => r.User.Id == id).OrderBy(r => r.Date).ToListAsync();
+
+            if (reservations == null)
+            {
+                return NotFound();
+            }
+
+            return reservations;
         }
 
         // PUT: api/Reservations/5

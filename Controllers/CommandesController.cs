@@ -103,23 +103,13 @@ namespace pdm.Controllers
         [HttpPost, Authorize(Roles = "Admin,Membre")]
         public async Task<ActionResult<Commande>> PostCommande(Commande commande)
         {
-           if(commande.Custom != null)
-           {
-                if(commande.Custom.Id > 0)
-                {
-                    _context.Commande.Add(commande);
-                }
-                else
-                {
-                    commande.Custom = null;
-                }
-           }
-           
+            
            if (_context.Commande == null)
            {
               return Problem("Entity set 'PremiumDeluxeMotorSports_v1Context.Commande'  is null.");
            }
 
+           _context.Commande.Add(commande);
            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCommande", new { id = commande.Id }, commande);
