@@ -32,8 +32,7 @@ namespace pdm.Migrations
                     Marque = table.Column<string>(type: "TEXT", nullable: false),
                     Model = table.Column<string>(type: "TEXT", nullable: false),
                     Prix = table.Column<int>(type: "INTEGER", nullable: false),
-                    Image = table.Column<string>(type: "TEXT", nullable: false),
-                    ReservationId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Image = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +108,7 @@ namespace pdm.Migrations
                         column: x => x.VehiculeId,
                         principalTable: "Vehicule",
                         principalColumn: "VehiculeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,19 +173,12 @@ namespace pdm.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Reservation_VehiculeId",
                 table: "Reservation",
-                column: "VehiculeId",
-                unique: true);
+                column: "VehiculeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
                 table: "Users",
                 column: "RoleID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicule_ReservationId",
-                table: "Vehicule",
-                column: "ReservationId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

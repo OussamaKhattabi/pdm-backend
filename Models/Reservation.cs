@@ -14,10 +14,12 @@ namespace pdm.Models
         
         [ForeignKey("User")]
         public int UserId { get; set; }
+        [JsonIgnore]
         public User? User { get; set; }
 
         [ForeignKey("Vehicule")]
         public int VehiculeId { get; set; }
+        [JsonIgnore]
 
         public Vehicule? Vehicule { get; set; }
 

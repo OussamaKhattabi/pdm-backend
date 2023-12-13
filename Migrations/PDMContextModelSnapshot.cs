@@ -91,8 +91,7 @@ namespace pdm.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("VehiculeId")
-                        .IsUnique();
+                    b.HasIndex("VehiculeId");
 
                     b.ToTable("Reservation");
                 });
@@ -169,13 +168,7 @@ namespace pdm.Migrations
                     b.Property<int>("Prix")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("VehiculeId");
-
-                    b.HasIndex("ReservationId")
-                        .IsUnique();
 
                     b.ToTable("Vehicule");
                 });
@@ -227,9 +220,9 @@ namespace pdm.Migrations
                         .IsRequired();
 
                     b.HasOne("pdm.Models.Vehicule", "Vehicule")
-                        .WithOne("Reservation")
-                        .HasForeignKey("pdm.Models.Reservation", "VehiculeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Reservations")
+                        .HasForeignKey("VehiculeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -266,7 +259,7 @@ namespace pdm.Migrations
 
                     b.Navigation("Customs");
 
-                    b.Navigation("Reservation");
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

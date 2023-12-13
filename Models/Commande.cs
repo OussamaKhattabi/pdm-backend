@@ -12,17 +12,20 @@ namespace pdm.Models
         
         [ForeignKey("Custom")]
         public int CustomId { get; set; }
+        [JsonIgnore]
         public Custom? Custom { get; set; }
         
         
         
         [ForeignKey("Vehicule")]
         public int VehiculeId { get; set; }
+        [JsonIgnore]
         public Vehicule? Vehicule { get; set; }
         
         
         [ForeignKey("User")]
         public int UserId { get; set; }
+        [JsonIgnore]
         public User? User { get; set; }
 
     }

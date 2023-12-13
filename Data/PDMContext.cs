@@ -64,14 +64,11 @@ namespace pdm.Data
             // Configuration de la relation Vehicule - Reservation
 
             modelBuilder.Entity<Vehicule>()
-                  .HasOne(v => v.Reservation)
+                  .HasMany(v => v.Reservations)
                   .WithOne(r => r.Vehicule)
-                  .HasForeignKey<Reservation>(r => r.VehiculeId);
-             
+                  .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Vehicule>()
-                .HasIndex(v => v.ReservationId)
-                .IsUnique();
+            
 
             // Configuration de la relation User - Role
 

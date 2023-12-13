@@ -18,14 +18,9 @@ namespace pdm.Models
 
         [JsonIgnore]
         public ICollection<Commande> Commandes { get; set; }
-
-
-        [ForeignKey("ReservationId")]
+        
         [JsonIgnore]
-        public int? ReservationId { get; set; }
-
-        [JsonIgnore]
-        public Reservation? Reservation { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
         
     }
 }
