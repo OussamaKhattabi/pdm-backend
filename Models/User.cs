@@ -36,7 +36,7 @@ namespace pdm.Models
         
         [JsonIgnore]
         public ICollection<Reservation>? Reservations { get; set; }
-        [JsonIgnore]
+      
         public ICollection<Commande>? Commandes { get; set; }
     }
 }

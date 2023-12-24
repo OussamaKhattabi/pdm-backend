@@ -19,7 +19,7 @@ namespace pdm.Models
         
         [ForeignKey("Vehicule")]
         public int VehiculeId { get; set; }
-        [JsonIgnore]
+
         public Vehicule? Vehicule { get; set; }
         
         

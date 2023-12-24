@@ -16,6 +16,26 @@ namespace pdm.Controllers
         {
             _context = context;
         }
+        
+        //GET: api/Commandes/User/2
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<IEnumerable<Commande>>> GetCommandesByUserId(int userId)
+        {
+            var userExists = await _context.Users.AnyAsync(u => u.Id == userId);
+            if (!userExists)
+            {
+                return NotFound($"User with ID {userId} not found");
+            }
+
+            var commandes = await _context.Commande
+                .Where(c => c.UserId == userId)
+                .Include(c => c.User)
+                .Include(c => c.Vehicule)
+                .Include(c => c.Custom)
+                .ToListAsync();
+
+            return commandes;
+        }
 
         // GET: api/Commandes
         [HttpGet, Authorize(Roles = "Admin")]
@@ -66,6 +86,7 @@ namespace pdm.Controllers
 
             return commande;
         }
+        
 
         // PUT: api/Commandes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
