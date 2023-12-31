@@ -12,14 +12,12 @@ namespace pdm.Models
         
         [ForeignKey("Custom")]
         public int CustomId { get; set; }
-        [JsonIgnore]
         public Custom? Custom { get; set; }
         
         
         
         [ForeignKey("Vehicule")]
         public int VehiculeId { get; set; }
-
         public Vehicule? Vehicule { get; set; }
         
         

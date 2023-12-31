@@ -100,7 +100,15 @@ namespace pdm.Controllers
                 {
                     await file.CopyToAsync(fileStream);
                 }
-                vehicule.Image = fileName;
+                
+                // Supprimer tout ce qui se trouve avant "assets"
+                int srcIndex = filePath.IndexOf("assets");
+                if (srcIndex != -1)
+                {
+                    filePath = $"{filePath.Substring(srcIndex)}";
+                }
+                
+                vehicule.Image = filePath;
             } else {
                 vehicule.Image = "default.jpg";
             }
